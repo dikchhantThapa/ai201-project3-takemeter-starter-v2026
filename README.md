@@ -38,7 +38,7 @@
 <!-- ═══════════════════════ UNIT 5 — THE BUILD ═══════════════════════ -->
 
 ## What This Does
-TakeMeter classifies public posts from r/DotA2 into two categories: `analysis` and `non_analysis`. The goal is to distinguish posts that support a Dota 2 claim with concrete reasoning or evidence from posts that do not provide supporting reasoning or evidence. The classifier will be fine-tuned on posts collected and labeled from r/DotA2.
+TakeMeter classifies public posts/comments from r/DotA2 into two categories: `analysis` and `non_analysis`. The goal is to distinguish posts that support a Dota 2 claim with concrete reasoning or evidence from posts that do not provide supporting reasoning or evidence. The classifier will be fine-tuned on posts collected and labeled from r/DotA2.
 <!-- Your community, and what your classifier sorts posts into. Three or four
      sentences. -->
 
@@ -52,121 +52,107 @@ TakeMeter classifies public posts from r/DotA2 into two categories: `analysis` a
 **Definition:** Makes a Dota 2 claim and supports it with a specific reason, statistic, mechanic explanation, patch detail, item/build reasoning, or other concrete evidence.
 
 **Example 1:**
-> [add a real r/DotA2 post]
+> looks like you always take mid since you have low win rates with most mid heroes and high win rate with supports try letting invoker have mid and they might do better
 
 **Example 2:**
-> [add a real r/DotA2 post]
+> phoenix is the ridiculously good counter to lone druid that most people do nt know about the reason is the spirit bear attacks do not count on the egg ... so lone will have to use his hero attacks if he wants to destroy the egg
 
 ### `non_analysis`
 
 **Definition:** Does not support a Dota 2 claim with concrete reasoning or evidence; includes reactions, questions, requests, suggestions, jokes, complaints, praise, predictions, and unsupported opinions.
 
 **Example 1:**
-> [add a real r/DotA2 post]
+> as an alliance fanboy i just wan na give big props to vega they played amazing and i wish them the best of luck against eg sucks vega wont go to shanghai
 
 **Example 2:**
-> [add a real r/DotA2 post]
+> sorry i have to mention my special friend brunz who was the asshole invoker at the end i forgot to put him in the credits and he was upset
 
 ### The hardest boundary
 
 **Which two labels:** `analysis` and `non_analysis`
 
 **The decision rule I used every time:** If a post makes a claim and gives concrete reasoning or evidence supporting that claim, I label it `analysis`. Otherwise, I label it `non_analysis`.
-<!-- Each label: a one-sentence definition and two real examples from your
-     reading. Then your decision rule for the hardest boundary.
-
-     The decision rule is worth a point on its own and it's the thing most
-     people leave out. Every taxonomy has a hardest boundary. Name yours. -->
 
 ---
 
+
 ## The Dataset
 
-<!-- Where you collected from, how you labelled, your counts, and three hard
-     cases. -->
+**Where the posts came from:**  
+I used historical public r/DotA2 comments from a public Reddit dataset. I sampled longer comments so that there was enough context to apply my taxonomy consistently.
 
-**Where the posts came from:**
+**How I labelled them:**  
+I created a dataset of 150 posts. I labelled 20 posts completely cold without AI assistance. I had AI assistance on an earlier group of 20 while I was refining the taxonomy, and AI pre-labelled the remaining 110 posts. I then read and reviewed every AI pre-labelled post and either kept or corrected its label.
 
-**How I labelled them:** <!-- Cold first? Pre-labelled with AI and corrected?
-Say so plainly — the disclosure is required, not penalised. -->
+I used 150 examples rather than the requested 200 because I reached the assignment's minimum submission size while working under the available time. The notebook warns about this, and I would collect more examples in a larger version of the project.
 
 **Counts per label:**
 
 | Label | Count | Share |
-|---|---|---|
-|  |  |  |
-|  |  |  |
-|  |  |  |
-| **Total** |  | 100% |
+|---|---:|---:|
+| `analysis` | 93 | 62% |
+| `non_analysis` | 57 | 38% |
+| **Total** | **150** | **100%** |
 
 **Three hard cases**
 
-<!-- Any post that made you pause: what it was, which two labels it could have
-     been, and what you chose. These are worth more than the easy 190. -->
-
 **1.**
-> *The post:*
->
-> *Could have been:*
->
-> *I chose, because:*
+> **The post:** "if i m not playing pubs i pick the remaining position in ranked games ... it seems when people do nt get carry roles they go jungle instead and ruin the game"
+
+> **Could have been:** `analysis` or `non_analysis`
+
+> **I chose, because:** I chose `non_analysis` because although it makes a claim about player behavior, it does not provide concrete evidence or specific examples supporting that claim.
 
 **2.**
-> *The post:*
->
-> *Could have been:*
->
-> *I chose, because:*
+> **The post:** "you know how i got that challenge ... two autowins and the last one i rushed hard with leshrac max edict"
+
+> **Could have been:** `analysis` or `non_analysis`
+
+> **I chose, because:** I chose `analysis` because the writer explains how the challenge was completed and supports the explanation with specific events from the matches, even though the evidence is anecdotal.
 
 **3.**
-> *The post:*
->
-> *Could have been:*
->
-> *I chose, because:*
+> **The post:** "i m unsure why everyone in here is saying the admins ca nt do this ... the teams agreed to this scheduling system ..."
 
----
+> **Could have been:** `analysis` or `non_analysis`
+
+> **I chose, because:** This was difficult because it contains reasoning about the tournament rules, but I originally labelled it `non_analysis`. It showed me that distinguishing an argued opinion from a general reaction can be subjective.
 
 ## The Training Run
 
-<!-- Your starting model, your settings, and anything you changed and why. -->
+**Base model:** `distilbert-base-uncased`
 
-**Base model:**
+**Settings:** 3 epochs, learning rate `2e-5`, batch size 16, seed 42, maximum sequence length 128.
 
-**Settings:** <!-- epochs, learning rate, batch size, seed -->
+**Anything I changed from the defaults, and why:**  
+I did not change the training hyperparameters from the notebook defaults. I only changed the label list to match my taxonomy: `analysis` and `non_analysis`.
 
-**Anything I changed from the defaults, and why:**
+**Split sizes:**  
+104 training examples, 23 validation examples, and 23 test examples. The test split contained 14 `analysis` examples and 9 `non_analysis` examples.
 
-**Split sizes:** <!-- train / val / test, and per-label counts in the test
-split. If a label had fewer than about 8 in test, say so — it explains a lot
-of next unit's variance. -->
+The model was trained on CPU.
 
+The completed training run achieved 0.609 overall accuracy and 0.378 macro F1. The `analysis` label had an F1 of 0.757, while `non_analysis` had an F1 of 0.000. I am recording these results without changing my acceptance criteria because those criteria were written before training.
 
 
 ---
 
 ## How I Used AI
 
-<!-- Two specific moments — what you asked, what came back, what you changed.
-
-     ⚠️ Plus disclosure of any pre-labelling. If you had a model pre-label a
-     batch and then read and corrected every one, say that. It's an allowed
-     workflow and disclosing it costs you nothing. Not disclosing it is the
-     problem. -->
-
 **Moment 1**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- **What I asked for:** I asked AI to help me think through a simple taxonomy for Dota 2 posts and to stress-test the boundary between supported analysis and unsupported reactions or opinions.
+- **What came back:** AI suggested starting with `analysis` and `reaction`, but while labelling posts I noticed that many posts were questions, jokes, requests, or suggestions that did not fit `reaction` well.
+- **What I changed:** I broadened the second label to `non_analysis` and used a simpler rule: a claim with concrete supporting reasoning or evidence is `analysis`; otherwise it is `non_analysis`.
 
 **Moment 2**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- **What I asked for:** I used AI to help pre-label a portion of the collected r/DotA2 posts after I had defined my taxonomy and completed a cold-labeling batch.
+- **What came back:** AI produced suggested `analysis` or `non_analysis` labels for the remaining examples.
+- **What I changed:** I reviewed each AI-pre-labelled row myself and kept or corrected the suggested label based on my written decision rule.
 
-**Pre-labelling disclosure:**
+**Pre-labelling disclosure:**  
+AI was used to assist with 20 early examples while I refined the taxonomy and to pre-label 110 additional examples. I separately labelled 20 examples cold without AI assistance. I manually reviewed all 110 pre-labelled examples before using the dataset for training.
+
 
 <!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
 
