@@ -51,61 +51,43 @@ whether you hit them:
 
 ---
 
-## 1.
+## 1. Overall accuracy
 
-<!-- Your criterion. It must name a number. -->
+The classifier should achieve at least 70% overall accuracy on the held-out test set.
 
-
-
-**Why this target:**
-
-
+**Why this target:** With only two labels, I want the classifier to perform clearly better than guessing. I would consider 70% accurate enough to be useful for this first version.
 
 ---
 
-## 2.
+## 2. Analysis performance
 
-<!-- Your criterion. -->
+The `analysis` label should have an F1 score of at least 0.65 on the held-out test set.
 
-
-
-**Why this target:**
-
-
+**Why this target:** `analysis` is my larger label with 93 of the 150 examples, so I expect the model to learn it reasonably well. I chose 0.65 as a useful but realistic target for this dataset size.
 
 ---
 
-## 3.
+## 3. Non-analysis performance
 
-<!-- Your criterion. -->
+The `non_analysis` label should have an F1 score of at least 0.60 on the held-out test set.
 
-
-
-**Why this target:**
-
-
+**Why this target:** `non_analysis` is my smaller label with 57 examples, so fewer examples will appear in the test split and its F1 score may vary more between seeds. I therefore chose a slightly lower target than for `analysis`.
 
 ---
 
-## 4.
+## 4. Dataset balance
 
-<!-- Your criterion. -->
+No label should make up more than 65% of the labeled dataset.
 
-
-
-**Why this target:**
-
-
+**Why this target:** My dataset currently has 93 `analysis` posts and 57 `non_analysis` posts, which is about a 62% / 38% split. A 65% maximum keeps either label from dominating the training data.
 
 ---
 
-## 5.
+## 5. Labeling consistency
 
-<!-- Your criterion. -->
+Another person applying the same taxonomy should agree with my labels on at least 75% of the posts they review.
 
-
-
-**Why this target:**
+**Why this target:** The difference between `analysis` and `non_analysis` can sometimes be subjective, especially when a post contains an opinion with limited supporting reasoning. I still expect the written decision rule to produce agreement most of the time.
 
 
 
