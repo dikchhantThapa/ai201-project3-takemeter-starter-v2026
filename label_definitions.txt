@@ -5,6 +5,5 @@
 #
 # Delete the examples below and put yours in.
 
-analysis: makes an argument backed by a specific, checkable fact
-hot_take: a confident claim with no support offered
-reaction: an immediate response to something that just happened
+analysis: makes a Dota 2 claim and supports it with a specific reason, statistic, mechanic explanation, patch detail, item/build reasoning, or other concrete evidence
+non_analysis: does not support a Dota 2 claim with concrete reasoning or evidence; includes reactions, questions, requests, suggestions, jokes, complaints, praise, predictions, and unsupported opinions

@@ -38,7 +38,7 @@
 <!-- ═══════════════════════ UNIT 5 — THE BUILD ═══════════════════════ -->
 
 ## What This Does
-
+TakeMeter classifies public posts from r/DotA2 into two categories: `analysis` and `non_analysis`. The goal is to distinguish posts that support a Dota 2 claim with concrete reasoning or evidence from posts that do not provide supporting reasoning or evidence. The classifier will be fine-tuned on posts collected and labeled from r/DotA2.
 <!-- Your community, and what your classifier sorts posts into. Three or four
      sentences. -->
 
@@ -47,42 +47,36 @@
 ---
 
 ## Label Taxonomy
+### `analysis`
 
+**Definition:** Makes a Dota 2 claim and supports it with a specific reason, statistic, mechanic explanation, patch detail, item/build reasoning, or other concrete evidence.
+
+**Example 1:**
+> [add a real r/DotA2 post]
+
+**Example 2:**
+> [add a real r/DotA2 post]
+
+### `non_analysis`
+
+**Definition:** Does not support a Dota 2 claim with concrete reasoning or evidence; includes reactions, questions, requests, suggestions, jokes, complaints, praise, predictions, and unsupported opinions.
+
+**Example 1:**
+> [add a real r/DotA2 post]
+
+**Example 2:**
+> [add a real r/DotA2 post]
+
+### The hardest boundary
+
+**Which two labels:** `analysis` and `non_analysis`
+
+**The decision rule I used every time:** If a post makes a claim and gives concrete reasoning or evidence supporting that claim, I label it `analysis`. Otherwise, I label it `non_analysis`.
 <!-- Each label: a one-sentence definition and two real examples from your
      reading. Then your decision rule for the hardest boundary.
 
      The decision rule is worth a point on its own and it's the thing most
      people leave out. Every taxonomy has a hardest boundary. Name yours. -->
-
-### `label_one`
-
-**Definition:**
-
-**Example 1:**
->
-
-**Example 2:**
->
-
-### `label_two`
-
-**Definition:**
-
-**Example 1:**
->
-
-**Example 2:**
->
-
-### The hardest boundary
-
-**Which two labels:**
-
-**The decision rule I used every time:**
-<!-- e.g. "If the post names a specific checkable fact, it's `analysis`, even
-     if the tone is heated." -->
-
-
 
 ---
 
