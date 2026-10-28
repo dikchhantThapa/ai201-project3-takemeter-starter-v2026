@@ -256,7 +256,7 @@ The zero-shot baseline outperformed my fine-tuned model on every reported metric
      data/staff_taxonomy.md, not your own — so every argument below is made
      from those definitions and those decision rules. -->
 
-**Agreement rate:** ___ / 30 = ___%
+**Agreement rate:** 29 / 30 = 97%
 
 <!-- Nobody grades this number. A 60% who argues every disagreement from the
      stated rules beats a 95% who wrote "staff was right" nine times. Several
@@ -279,24 +279,15 @@ The zero-shot baseline outperformed my fine-tuned model on every reported metric
      what you did across your own 200. -->
 
 **1.**
-> *The post:*
+> *The post:* "Road racing peaked in about 2015 and everything since has been marketing."
 >
-> *Staff said / I said:*
+> *Staff said / I said:* Staff said `hot_take`; I said `analysis`.
 >
-> *My call, and why:*
+> *My call, and why:* Staff is right. The post includes the year 2015, but that year is part of the claim rather than evidence supporting it. The writer gives no checkable fact showing that road racing actually peaked then or that everything since has been marketing. Under Rule 1, that makes it an unsupported confident claim, so `hot_take` fits better.
 >
-> *Which pile:*
+> *Which pile:* (a) The rule covered it and I applied it loosely.
 
-**2.**
-> *The post:*
->
-> *Staff said / I said:*
->
-> *My call, and why:*
->
-> *Which pile:*
-
-**What the pattern in my disagreements tells me:**
+**What the pattern in my disagreements tells me:** I matched the staff labels on 29 of 30 posts, so I was generally consistent when applying a written taxonomy. My only disagreement came from treating a specific year as evidence when it was actually just part of an unsupported claim. This suggests that one labeling risk is mistaking specificity for actual supporting evidence.
 
 
 

@@ -1,0 +1,13 @@
+{
+  "compared": 30,
+  "agreed": 29,
+  "agreement_rate": 0.9666666666666667,
+  "disagreements": [
+    {
+      "text": "Road racing peaked in about 2015 and everything since has been marketing.",
+      "staff": "hot_take",
+      "mine": "analysis"
+    }
+  ],
+  "staff_posts_not_in_mine": 0
+}
