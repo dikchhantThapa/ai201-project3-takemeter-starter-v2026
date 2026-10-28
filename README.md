@@ -189,60 +189,43 @@ The zero-shot baseline outperformed my fine-tuned model on every reported metric
 
 ## Run Log — Before
 
-<!-- Five criteria across three seeds. The notebook's section 6 prints the
-     spread table; the Target and Verdict columns are yours. -->
-
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
 |---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| 1. Overall accuracy | ≥ 0.70 | 0.609 | 0.609 | 0.609 | MISSED |
+| 2. `analysis` F1 | ≥ 0.65 | 0.757 | 0.757 | 0.757 | MET |
+| 3. `non_analysis` F1 | ≥ 0.60 | 0.000 | 0.000 | 0.000 | MISSED |
+| 4. No label above 65% of dataset | ≤ 65% | 62% | 62% | 62% | MET |
+| 5. Labeling agreement | ≥ 75% | 97% | 97% | 97% | MET |
 
 ### Confusion matrix
 
-<!-- ⚠️ TYPED AS A MARKDOWN TABLE. The notebook prints one ready to paste.
-     An image of a matrix earns nothing. -->
+| true \ predicted | analysis | non_analysis |
+|---|---|---|
+| **analysis** | 14 | 0 |
+| **non_analysis** | 9 | 0 |
 
-| true \ predicted |  |  |  |
-|---|---|---|---|
-| **** |  |  |  |
-| **** |  |  |  |
-| **** |  |  |  |
-
-**My biggest off-diagonal number, and what it means:**
-<!-- Not "the model made mistakes" — WHICH boundary it didn't learn, and which
-     direction. "7 real analysis posts were called hot_take and only 3 went the
-     other way" is a direction, not just an error rate. -->
-
-
+**My biggest off-diagonal number, and what it means:**  
+The largest error was 9 real `non_analysis` posts being predicted as `analysis`, while 0 real `analysis` posts were predicted as `non_analysis`. The model is strongly biased toward predicting `analysis` and did not learn the boundary well enough to recognize `non_analysis`.
 
 ---
 
 ## Verdicts and Diagnoses
 
-<!-- MET or MISSED against LAST UNIT's target. The target has to hold across
-     all three seeds, not turn up sometimes. -->
-
 | # | Criterion | Target | Verdict | How I decided |
 |---|---|---|---|---|
-| 1 |  |  |  |  |
-| 2 |  |  |  |  |
-| 3 |  |  |  |  |
-| 4 |  |  |  |  |
-| 5 |  |  |  |  |
+| 1 | Overall accuracy | ≥ 0.70 | MISSED | Accuracy was 0.609 for all three seeds, below the 0.70 target every time. |
+| 2 | `analysis` F1 | ≥ 0.65 | MET | `analysis` F1 was 0.757 for all three seeds, above the 0.65 target. |
+| 3 | `non_analysis` F1 | ≥ 0.60 | MISSED | `non_analysis` F1 was 0.000 for all three seeds because the model never predicted that label correctly. |
+| 4 | Dataset balance | No label > 65% | MET | `analysis` was 93 of 150 examples, or 62%, which is below the 65% limit. |
+| 5 | Labeling consistency | ≥ 75% agreement | MET | I agreed with the staff labels on 29 of 30 posts, for 97% agreement. |
 
 **Diagnoses**
 
-<!-- For each miss: the cause, and how you know. The four common causes are:
-     too few examples for a label, a boundary you applied inconsistently, a
-     genuinely hard label pair, and a task the model can't reach from this
-     much data.
+The main failure is the `non_analysis` label. Across all three seeds its F1 was 0.000, and the confusion matrix shows that all 9 true `non_analysis` test posts were classified as `analysis`. Because all three seeds produced the same result, this does not appear to be caused by one unlucky train/test split.
 
-     ⚠️ Use your agreement report as evidence. It is the only instrument you
-     have that can tell a LABELLING problem from a MODEL problem, and this
-     section is graded on whether you used it that way. -->
+The agreement check also suggests that inconsistent application of written rules is probably not the main problem. I matched the staff labels on 29 of 30 posts. My one disagreement showed that I can sometimes mistake a specific detail for actual supporting evidence, but the 97% agreement rate suggests that the larger model failure is more likely related to the limited and imbalanced training data.
+
+The dataset contained 93 `analysis` examples and only 57 `non_analysis` examples. Since the model collapsed completely toward the larger class, my improvement will focus on adding more examples of the weaker `non_analysis` label rather than changing the taxonomy.
 
 
 
