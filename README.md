@@ -168,16 +168,18 @@ AI was used to assist with 20 early examples while I refined the taxonomy and to
 
 | Measure | Baseline | Trained | Difference |
 |---|---|---|---|
-| Overall accuracy |  |  |  |
-| Macro F1 |  |  |  |
-| F1 — `label_one` |  |  |  |
-| F1 — `label_two` |  |  |  |
+| Overall accuracy | 0.739 | 0.609 | -0.130 |
+| Macro F1 | 0.713 | 0.378 | -0.334 |
+| F1 — `analysis` | 0.800 | 0.757 | -0.043 |
+| F1 — `non_analysis` | 0.625 | 0.000 | -0.625 |
 
 **What I predicted before I looked:**
+I expect the trained model to beat the zero-shot baseline on overall accuracy because it was fine-tuned on my Dota 2 taxonomy, although non_analysis may still perform poorly because the Unit 5 model strongly favored analysis.
 <!-- Milestone 1 asks you to write this BEFORE seeing the trained numbers. A
      prediction made afterwards isn't one. -->
 
 **What the gap actually means:**
+The zero-shot baseline outperformed my fine-tuned model on every reported metric. The largest gap was on `non_analysis`, where the baseline reached an F1 of 0.625 while the trained model scored 0.000, suggesting that my fine-tuned model learned to favor `analysis` rather than learning the boundary between the two labels.
 <!-- If the baseline matched your trained model, your fine-tuning added
      nothing — and that is a real finding, not a failure. Say it plainly. -->
 
